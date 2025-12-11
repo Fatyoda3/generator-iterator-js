@@ -1,16 +1,16 @@
 function* generatePrime(limit) {
-  let primeCandidate = 3;
+  let primeCandidate = 2;
   let divisor = 2;
 
   while (primeCandidate < limit) {
-
     while (divisor <= primeCandidate) {
 
       if (primeCandidate % divisor === 0) {
-        if (divisor === primeCandidate)
+        if (divisor === primeCandidate) {
           console.log({ prime: primeCandidate });
-        else
+        } else {
           divisor = primeCandidate;
+        }
       }
 
       divisor += 1;
@@ -25,13 +25,13 @@ function* generatePrime(limit) {
 const primes = generatePrime(100);
 
 // for (const prime of primes) {
-  // console.log({ prime });
+// console.log({ prime });
 // }
-primes.next()
-primes.next()
-primes.next()
-primes.next()
-primes.next()
+primes.next();
+primes.next();
+primes.next();
+primes.next();
+primes.next();
 primes.next()
 
 
