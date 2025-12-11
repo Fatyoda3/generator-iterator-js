@@ -9,12 +9,10 @@ function* createConsecutivePairs(data) {
 const numbers = [1, 2, 3, 4, 5, 6];
 
 const pairs = createConsecutivePairs(numbers);
+
+console.log(typeof pairs);
+
 for (const pair of pairs) {
   console.log(pair);
-  
 }
-// console.log();
-// console.log(pairs.next());
-// console.log(pairs.next());
-// console.log(pairs.next());
-// console.log(pairs.next());
+
