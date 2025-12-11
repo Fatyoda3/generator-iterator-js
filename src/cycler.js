@@ -1,6 +1,7 @@
 function* cycle(numbers, count) {
   let index = 0;
   const cycles = [];
+  
   while (index++ <= count) {
     // console.log({ index });
     cycles.push(...numbers);

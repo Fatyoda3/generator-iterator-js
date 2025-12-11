@@ -1,20 +1,27 @@
+const linesFound = [];
+
 function* lineIterator(text = '', delimiter = '') {
-  let start = 0;
-  let delimiterIndex = text.indexOf(delimiter, start);
-  
-  if (delimiterIndex === -1) {
-    delimiterIndex = text.length;
+  let i = 0;
+
+
+  while (true) {
+    yield i;
+    const delIndex = text.indexOf(delimiter, i);
+    const line = text.slice(i, delIndex);
+
+    i = delIndex + 1;
+
+    console.log({ i, delIndex });
+    console.log({ line });
+
   }
 
-  const line = text.slice(start, delimiterIndex);
-  start = delimiterIndex + 1;
-
-  yield line;
 }
 const text = "hello\nthis\nis\nme\nfat\nyoda\nI\nhope\nyou\nare\nhaving\na\ngood\ntime\nbeing\nwith\nme";
 
 const lines = lineIterator(text, '\n');
-
-for (const line of lines) {
-  console.log(line);
-}
+// lines.next();
+// lines.next();
+// lines.next();
+// lines.next();
+// lines.next();
