@@ -1,14 +1,17 @@
 const buckets = [];
+/* partition by identity: [1,1,1,2,2,1,1,3,3,2] => 
+  [[1,1,1],[2,2],[1,1],[3,3],[2]]
 
+ isEven: [1,3,1,2,2,1,1,3,5,2] => [[1,3,1],[2,2],[1,1,3,5],[2]] */
 function* partition(value, predicate) {
 
   let index = 0;
   const bucket = [];
 
-  while (true) {
-    bucket.push(index);
-    console.log({ bucket });
-
+  while (index < value.length) {
+    // console.log({ bucket });
+    
+    bucket.push(value[index]);
     if (predicate(bucket)) {
       buckets.push([...bucket]);
       bucket.length = 0;
@@ -23,16 +26,16 @@ const parted = partition(numbers, (bucket) => bucket.length === 3);
 
 
 
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
-console.log(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
+/* console.log */(parted.next());
 
 console.log({ buckets });
 
