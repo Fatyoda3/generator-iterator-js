@@ -9,4 +9,13 @@ const Sym = (key) => {
   symbol[key] = key;
   return symbol[key];
 
+};
+
+
+const range = (st, end, step = 1) => {
+return {
+
+
+  
 }
+};

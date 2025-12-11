@@ -1,13 +1,21 @@
-const iterator = () => {
+const iterator = (predicate) => {
   return {
     current: 0,
 
     next() {
+      if (predicate(this.current)) {
+        return { value: this.current, done: true };
+      }
       return { value: this.current++, done: false };
     },
   };
 };
-// const iter1 = iterator();
+
+// const iter1 = iterator(x => x >= 5);
+// console.log(iter1.next());
+// console.log(iter1.next());
+// console.log(iter1.next());
+// console.log(iter1.next());
 // console.log(iter1.next());
 // console.log(iter1.next());
 // console.log(iter1.next());
@@ -22,7 +30,7 @@ const rangeIterator = (from, to, step = 1) => {
       if (this.current >= to) {
         return { value: this.current, done: true };
       }
-      return { value: this.current++, done: false };
+      return { value: this.current += step, done: false };
     }
   };
 };
@@ -39,9 +47,10 @@ const lineIterator = (text = '') => {
   return {
     previous: 0,
     current: 0,
-    last: '',
+    lastLineOfText: '',
 
     newLine() {
+
       const newLineIndex = text.indexOf('\n', this.previous);
       const endOfLine = newLineIndex === -1 ? text.length : newLineIndex;
       const line = text.slice(this.previous, endOfLine);
@@ -49,7 +58,7 @@ const lineIterator = (text = '') => {
       this.current = newLineIndex;
       this.previous = this.current + 1;
 
-      this.last = line;
+      this.lastLineOfText = line;
 
       return line;
     },
@@ -58,7 +67,7 @@ const lineIterator = (text = '') => {
       if (this.current === -1) {
         // console.log('END OF FILE');
 
-        return { value: this.last, done: true };
+        return { value: this.lastLineOfText, done: true };
       }
 
       return { value: this.newLine(), done: false };
@@ -85,7 +94,7 @@ const rectangleIterator = (row, column) => {
 
       // this.index += 1;
       if (this.index++ >= row) {
-        return { done: true, value: last };
+        return { done: true, value: this.last };
       }
 
       return {
@@ -98,10 +107,28 @@ const rectangleIterator = (row, column) => {
   };
 
 };
-const array = [];
-const rect = rectangleIterator(4, 3);
-array.push(rect.next().value);
-array.push(rect.next().value);
-array.push(rect.next().value);
-array.push(rect.next().value);
-console.log(array.join('\n'));
+
+const iterator1 = (predicate) => {
+  return {
+    current: 0,
+
+    next() {
+      if (predicate(this.current)) {
+        return { value: this.current, done: true };
+      }
+      return { value: this.current++, done: false };
+    },
+  };
+};
+const rect = {
+  [Symbol.iterator]: () => {
+    return iterator1;
+  }
+
+};
+
+// rect.next();
+const t = [...rect];
+console.log(t);
+
+
