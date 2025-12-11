@@ -1,14 +1,16 @@
 function* lineIterator(text = '', delimiter = '') {
-  let newLineIndex = 0;
+  let delIndex = 0;
 
-  while (newLineIndex < text.length) {
-    let delIndex = text.indexOf(delimiter, newLineIndex);
-    if (delIndex === -1) {
-      delIndex = text.length;
+  while (delIndex < text.length) {
+    let newDelIndex = text.indexOf(delimiter, delIndex);
+    
+    if (newDelIndex === -1) {
+      newDelIndex = text.length;
     }
 
-    const line = text.slice(newLineIndex, delIndex);
-    newLineIndex = delIndex + 1;
+    const line = text.slice(delIndex, newDelIndex);
+    delIndex = newDelIndex + 1;
+
     yield line;
   }
 }

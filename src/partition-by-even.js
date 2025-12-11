@@ -1,42 +1,35 @@
-
-function* partition(value, isEven) {
+function* partition(value, predicate) {
   const buckets = [];
   let index = 0;
 
-  const b1 = [];
-  const b2 = [];
+  const parted = [];
 
-  while (index < value.length - 1) {
+  while (index < value.length) {
 
-    while (isEven(value[index])) {
-      b1.push(value[index]);
+    while (!(predicate(value[index])) && index < value.length) {
+      parted.push(value[index]);
       index += 1;
     }
+    buckets.push([...parted]);
+    parted.length = 0;
 
-    while (!(isEven(value[index]))) {
-      b2.push(value[index]);
+    while (predicate(value[index]) && index < value.length) {
+      parted.push(value[index]);
       index += 1;
     }
+    buckets.push([...parted]);
+    parted.length = 0;
 
-    if (b1.length) {
-    buckets.push([...b1]);
-    }
-
-    if (b2.length) {
-    buckets.push([...b2]);
-    }
-
-    b1.length = 0;
-    b2.length = 0;
-
-    yield [index, buckets];
+    yield buckets;
   }
+  
+  return buckets;
 }
 
 // const numbers = [2, 2, 3, 1, 4, 5];
 const numbers = [1, 2, 3, 1, 2, 2, 1, 1, 3, 5, 2];
-const parted = partition(numbers, (value) => !(value & 1));
+const parted = partition(numbers, (value) => (value % 2 === 0));
 
-for (const [index, buckets] of parted) {
+for (const buckets of parted) {
   console.log(buckets);
 }
