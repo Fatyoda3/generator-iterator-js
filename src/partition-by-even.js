@@ -1,28 +1,29 @@
 function* partition(value, predicate) {
+  const arrayLen = value.length;
   const buckets = [];
   let index = 0;
-
   const parted = [];
 
-  while (index < value.length) {
-
-    while (!(predicate(value[index])) && index < value.length) {
+  while (index < arrayLen) {
+    while (!(predicate(value[index])) && index < arrayLen) {
       parted.push(value[index]);
       index += 1;
     }
+
     buckets.push([...parted]);
     parted.length = 0;
 
-    while (predicate(value[index]) && index < value.length) {
+    while (predicate(value[index]) && index < arrayLen) {
       parted.push(value[index]);
       index += 1;
     }
+
     buckets.push([...parted]);
     parted.length = 0;
 
     yield buckets;
   }
-  
+
   return buckets;
 }
 
