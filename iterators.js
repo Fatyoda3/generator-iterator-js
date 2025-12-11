@@ -38,14 +38,16 @@ const lineIterator = (text = '') => {
 
   return {
     previous: 0,
-    lastLine: '',
-
+    current: 0,
+    last: '',
     newLine() {
       const newLineIndex = text.indexOf('\n', this.previous);
-      const line = text.slice(this.previous, newLineIndex);
+      const endOfLine = newLineIndex === -1 ? text.length : newLineIndex;
+      const line = text.slice(this.previous, endOfLine);
+      this.current = newLineIndex;
+      this.previous = this.current + 1;
 
-      this.previous = newLineIndex + 1;
-      this.lastLine = line;
+      this.last = line;
 
       return line;
     },
@@ -54,7 +56,7 @@ const lineIterator = (text = '') => {
       if (this.current === -1) {
         console.log('END OF FILE');
 
-        return { value: this.lastLine, done: true };
+        return { value: this.last, done: true };
       }
 
       return { value: this.newLine(), done: false };
