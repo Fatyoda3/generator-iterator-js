@@ -40,10 +40,12 @@ const lineIterator = (text = '') => {
     previous: 0,
     current: 0,
     last: '',
+
     newLine() {
       const newLineIndex = text.indexOf('\n', this.previous);
       const endOfLine = newLineIndex === -1 ? text.length : newLineIndex;
       const line = text.slice(this.previous, endOfLine);
+
       this.current = newLineIndex;
       this.previous = this.current + 1;
 
@@ -54,7 +56,7 @@ const lineIterator = (text = '') => {
 
     next() {
       if (this.current === -1) {
-        console.log('END OF FILE');
+        // console.log('END OF FILE');
 
         return { value: this.last, done: true };
       }
@@ -64,9 +66,42 @@ const lineIterator = (text = '') => {
   };
 };
 
-const text = 'HELLO\nWORLD\nTHIS';
-const l = lineIterator(text);
-console.log(l.next());
-console.log(l.next());
-console.log(l.next());
-console.log(l.next());
+// const text = 'HELLO\nWORLD\nTHIS';
+// const l = lineIterator(text);
+
+// console.log(l.next());
+// console.log(l.next());
+// console.log(l.next());
+// console.log(l.next());
+
+const rectangleIterator = (row, column) => {
+  const line = '*'.repeat(column);
+
+  return {
+    index: 0,
+    last: line,
+
+    next() {
+
+      // this.index += 1;
+      if (this.index++ >= row) {
+        return { done: true, value: last };
+      }
+
+      return {
+        done: false, value: line
+      };
+
+    }
+
+
+  };
+
+};
+const array = [];
+const rect = rectangleIterator(4, 3);
+array.push(rect.next().value);
+array.push(rect.next().value);
+array.push(rect.next().value);
+array.push(rect.next().value);
+console.log(array.join('\n'));
