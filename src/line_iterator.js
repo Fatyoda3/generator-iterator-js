@@ -5,7 +5,7 @@ function* lineIterator(text = '', delimiter = '') {
 
 
   while (previousNewLine < text.length) {
-    yield previousNewLine;
+    // yield previousNewLine; 
 
     let delIndex = text.indexOf(delimiter, previousNewLine);
     if (delIndex === -1) {
@@ -13,7 +13,7 @@ function* lineIterator(text = '', delimiter = '') {
     }
 
     const line = text.slice(previousNewLine, delIndex);
-    yield line;
+    yield [previousNewLine, line];
 
     previousNewLine = delIndex + 1;
   }
@@ -23,13 +23,14 @@ function* lineIterator(text = '', delimiter = '') {
 const text = "hello\nthis\nis\nme\nfat\nyoda\nI\nhope\nyou\nare\nhaving\na\ngood\ntime\nbeing\nwith\nme";
 
 const lines = lineIterator(text, '\n');
-const linesCopy = Iterator.from(lines);
+const linesCopy = Iterator.from(lines.take(10));
 
-const tokens = [...lines];
+// const tokens = [...lines.take(10)];
+// console.log({ copy: [...linesCopy], tokens: '' });
 
-// for (const x of lines) {
-//   console.log(x);
-// }
+for (const [previousNewLine, line] of lines) {
+  console.log(previousNewLine, line);
+}
 
 // lines.next();
 // lines.next();
