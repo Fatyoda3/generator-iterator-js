@@ -1,21 +1,25 @@
+function getPrime(divisor, primeCandidate) {
+  while (divisor <= primeCandidate) {
+
+    if (primeCandidate % divisor === 0) {
+      if (divisor === primeCandidate) {
+        console.log({ prime: primeCandidate });
+      } else {
+        divisor = primeCandidate;
+      }
+    }
+
+    divisor += 1;
+  }
+  return divisor;
+}
+
 function* generatePrime(limit) {
   let primeCandidate = 2;
   let divisor = 2;
 
   while (primeCandidate < limit) {
-    while (divisor <= primeCandidate) {
-
-      if (primeCandidate % divisor === 0) {
-        if (divisor === primeCandidate) {
-          console.log({ prime: primeCandidate });
-        } else {
-          divisor = primeCandidate;
-        }
-      }
-
-      divisor += 1;
-    }
-
+    divisor = getPrime(divisor, primeCandidate);
     divisor = 2;
     yield primeCandidate++;
   }

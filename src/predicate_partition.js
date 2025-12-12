@@ -10,7 +10,7 @@ function* partition(value, predicate) {
   while (index < value.length) {
     bucket.push(value[index]);
 
-    if (predicate(bucket)) {
+    if (predicate(bucket , 3)) {
       buckets.push([...bucket]);
       bucket.length = 0;
     }
@@ -20,7 +20,7 @@ function* partition(value, predicate) {
 }
 const numbers = [1, 2, 3, 1, 4, 5];
 
-const parted = partition(numbers, (bucket) => bucket.length === 3);
+const parted = partition(numbers, (bucket, length) => bucket.length === length);
 
 
 for (const _ of parted);

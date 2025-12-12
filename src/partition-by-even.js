@@ -1,6 +1,6 @@
 function* partition(value, predicate) {
   const arrayLen = value.length;
-  const buckets = [];
+  // const buckets = [];
   let index = 0;
   const parted = [];
 
@@ -10,7 +10,8 @@ function* partition(value, predicate) {
       index += 1;
     }
 
-    buckets.push([...parted]);
+    // buckets.push([...parted]);
+    yield parted;
     parted.length = 0;
 
     while (predicate(value[index]) && index < arrayLen) {
@@ -18,13 +19,13 @@ function* partition(value, predicate) {
       index += 1;
     }
 
-    buckets.push([...parted]);
+    // buckets.push([...parted]);
+    yield parted;
     parted.length = 0;
 
-    yield buckets;
   }
 
-  return buckets;
+// return parted;
 }
 
 // const numbers = [2, 2, 3, 1, 4, 5];
