@@ -9,8 +9,8 @@ function* compose(fn, initialValue) {
 }
 const square = (value) => Math.pow(value, 2);
 
-const composedSquare = compose(square, 2);
+const composedSquare = compose(square, 0.5);
 
-for (const el of composedSquare.take(5)) {
+for (const el of composedSquare.take(10)) {
   console.log(el);
 }
